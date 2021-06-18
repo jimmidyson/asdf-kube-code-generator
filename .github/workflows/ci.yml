@@ -28,7 +28,13 @@ jobs:
       - name: Running asdf's plugin-test
         uses: asdf-vm/actions/plugin-test@v1.0.1
         with:
-          command: command -v conversion-gen
+          command: |
+            command -v client-gen
+            command -v conversion-gen
+            command -v defaulter-gen
+            command -v informer-gen
+            command -v lister-gen
+            command -v openapi-gen
         env:
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
