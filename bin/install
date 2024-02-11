@@ -8,5 +8,11 @@ if [[ "$ASDF_INSTALL_TYPE" == "version" ]]; then
   ASDF_INSTALL_VERSION="v${ASDF_INSTALL_VERSION}"
 fi
 
+# Below check prevents:
+# cannot install, GOBIN must be an absolute path
 export GOBIN="${ASDF_INSTALL_PATH}/bin"
+if [[ ! "${GOBIN}" = /* ]]; then
+  export GOBIN="$(readlink -f ${ASDF_INSTALL_PATH})/bin"
+fi
+
 go install k8s.io/code-generator/cmd/{client,conversion,defaulter,informer,lister,openapi}-gen@"${ASDF_INSTALL_VERSION}"
