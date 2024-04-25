@@ -15,4 +15,9 @@ if [[ ! "${GOBIN}" = /* ]]; then
   export GOBIN="$(readlink -f ${ASDF_INSTALL_PATH})/bin"
 fi
 
-go install k8s.io/code-generator/cmd/{client,conversion,defaulter,informer,lister,openapi}-gen@"${ASDF_INSTALL_VERSION}"
+go install k8s.io/code-generator/cmd/{client,conversion,defaulter,informer,lister}-gen@"${ASDF_INSTALL_VERSION}"
+
+# NOTE: https://github.com/kubernetes/code-generator/commit/9620d169e0ba5dfff6384d32686b5b37cdb96bd0
+# removed openapi-gen from code-generator. It's now placed under kube-openapi.
+# No tagged releases yet though: https://github.com/kubernetes/kube-openapi/issues/383
+go install k8s.io/kube-openapi/cmd/openapi-gen@latest
